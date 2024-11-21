@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Australian Men's Names</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+            cursor: pointer;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        td.selected {
+            background-color: #d9ead3;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Random Australian Men's Names</h1>
+<table id="namesTable">
+    <thead>
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email Address</th>
+            <th>Password</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- Rows will be populated here -->
+    </tbody>
+</table>
+
+<script>
+    const firstNames = [
+        "Liam", "Noah", "Oliver", "Jack", "Thomas", "Lucas", "Mason", "Ethan", "James", "Joshua",
+        "Alexander", "Henry", "Isaac", "Logan", "Sebastian", "Aiden", "Matthew", "Joseph", "Charlie",
+        "Levi", "Zachary", "Samuel", "Max", "Nathan", "George", "Ryan", "Caleb", "Oliver", "Tyler", "Luke",
+        "Dylan", "Carter", "Jaxon", "Finn", "Harvey", "Eli", "Adam", "Jake", "Oscar", "Theo", "Hudson",
+        "Xavier", "Cohen", "Ryder", "Isaiah", "Silas", "Jasper", "Waylon", "Gavin", "Dallas", "Luca",
+        "Hudson", "Archer", "Grayson", "Phoenix", "Beau", "Kohen", "Riley", "Jett", "Ronin", "Kane",
+        "Avery", "Cyrus", "Dante", "Koda", "Zane", "Alfie", "Spencer", "Major", "Kade", "Bodhi",
+        "River", "Saul", "Toby", "Milo", "Eden", "Tanner", "Anderson", "Knox", "Kairo", "Brock", "Zeke",
+        "Cruz", "Seth", "Rocco", "Zander", "Hendrix", "Nash", "Dane", "Cash", "Brock", "Axl",
+        "Jasper", "Finnley", "Kieran", "Riley", "Zion", "Kendrick", "Dante", "Khalil", "Malachi", "Tobias",
+        "Quentin", "Rafael", "Santiago", "Emilio", "Jovany", "Kairo", "Luca", "Milo", "Nico", "Orion",
+        "Phoenix", "Rocco", "Soren", "Talon", "Zaire", "Axton", "Bodhi", "Cairo", "Dante", "Eli",
+        "Gideon", "Hendrix", "Iker", "Jovian", "Koa", "Lennox", "Maverick", "Nash", "Orion", "Paxton",
+        "Aiden", "Asher", "Beckett", "Bennett", "Brayden", "Caleb", "Carter", "Chase", "Colton", "Dawson",
+        "Easton", "Elias", "Emmett", "Ezra", "Gage", "Graham", "Griffin", "Harrison", "Hayden", "Hunter",
+        "Jace", "Jaxon", "Jett", "Kaden", "Kellan", "Kieran", "Landon", "Liam", "Logan", "Maddox",
+        "Malachi", "Maverick", "Micah", "Nolan", "Owen", "Parker", "Preston", "Quinn", "Ryder", "Sawyer",
+        "Silas", "Tanner", "Tobias", "Tristan", "Tyler", "Vincent", "Wyatt", "Zane", "Zeke", "Ari",
+        "Bodhi", "Cyrus", "Dante", "Eli", "Finn", "Gideon", "Hendrix", "Iker", "Jovian", "Koa",
+        "Lennox", "Maverick", "Nash", "Orion", "Paxton", "Quinlan", "Ronan", "Soren", "Talon", "Zaire",
+        "Axton", "Bodhi", "Cairo", "Dante", "Eli", "Gideon", "Hendrix", "Iker", "Jovian", "Koa"
+    ];
+
+    const lastNames = [
+        "Smith", "Jones", "Williams", "Brown", "Wilson", "Taylor", "Thomas", "Johnson", "Lee", "Martin",
+        "Nguyen", "Harris", "Clark", "Rickard", "Robinson", "Walker", "Green", "Adams", "Morris", "Hall",
+        "Davis", "White", "Anderson", "Baker", "Thompson", "Harris", "Young", "Hughes", "Edwards", "Turner",
+        "Murphy", "Phillips", "Campbell", "Parker", "Evans", "Roberts", "Mitchell", "Bailey", "Sullivan", 
+        "Russell", "Fletcher", "Ross", "Stevens", "Dixon", "Murray", "Grant", "West", "Carter", "Brady",
+        "Richardson", "Graham", "Oliver", "Hunter", "Shaw", "Harrison", "Barnett", "Kennedy", "Wheeler",
+        "Jordan", "Davis", "Kennedy", "Simmons", "Coleman", "Holt", "Burns", "Harris", "Higgins", "Watson",
+        "Bishop", "Lane", "Parker", "Black", "Carlson", "Chambers", "Ross", "Mason", "Reed", "Kelley",
+        "Anderson", "Bennett", "Foster", "Garcia", "Ibrahim", "Jackson", "Kelley", "Lee", "Martinez", 
+        "Mitchell", "Roberts", "Parker", "Young", "Harris", "Clark", "Adams", "Morris", "Hall", "Davis",
+        "White", "Anderson", "Baker", "Thompson", "Foster", "Garcia", "Ibrahim", "Jackson", "Kelley", 
+        "O'Connor", "Quinn", "Roberts", "Simmons", "Turner", "Vasquez", "Zhang", "Bishop", "Cameron", "Dawson", 
+        "Ellis", "Fletcher", "Graham", "Mitchell", "Roberts", "Young", "Harris", "Clark", "Adams", 
+        "Morris", "Hall", "Davis", "White", "Anderson", "Baker", "Thompson"
+    ];
+    
+    const domains = ["example.com", "mail.com", "gmail.com", "yahoo.com", "outlook.com"];
+    
+    function getRandomNumberArray() {
+        return Array.from({length: 5}, () => Math.floor(Math.random() * 10)).join('');
+    }
+    
+    function generateRandomData() {
+        const data = [];
+        for (let i = 0; i < 100; i++) {
+            const firstName = firstNames[Math.floor(Math.random() * firstNames.length)];
+            const lastName = lastNames[Math.floor(Math.random() * lastNames.length)];
+            const email = `${firstName.toLowerCase()}${getRandomNumberArray()}@${domains[Math.floor(Math.random() * domains.length)]}`;
+            const password = `${firstName.toLowerCase()}${getRandomNumberArray()}`;
+            data.push({ firstName, lastName, email, password });
+        }
+        return data;
+    }
+
+    function populateTable() {
+        const tbody = document.querySelector('#namesTable tbody');
+        const data = generateRandomData();
+        data.forEach(({ firstName, lastName, email, password }) => {
+            const row = tbody.insertRow();
+            row.insertCell().textContent = firstName;
+            row.insertCell().textContent = lastName;
+            row.insertCell().textContent = email;
+            row.insertCell().textContent = password;
+        });
+    }
+
+    function copyToClipboard(text) {
+        const tempInput = document.createElement("input");
+        tempInput.value = text;
+        document.body.appendChild(tempInput);
+        tempInput.select();
+        document.execCommand("copy");
+        document.body.removeChild(tempInput);
+    }
+
+    document.addEventListener('DOMContentLoaded', populateTable);
+    
+    document.querySelector('#namesTable').addEventListener('click', (e) => {
+        if (e.target.tagName === 'TD') {
+            const selectedCells = document.querySelectorAll('td.selected');
+            selectedCells.forEach(cell => cell.classList.remove('selected'));
+            e.target.classList.add('selected');
+            copyToClipboard(e.target.textContent);
+        }
+    });
+</script>
+
+</body>
+</html>
